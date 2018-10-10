@@ -20,12 +20,14 @@ var ELH = {
     HandleJSError: function (event) {
         var errObj = ELH.prepareErrorObject(event);
 
-        if (ELH_Config.RESTEndpoint) {
-            ELH.PostErrorToREST(errObj);
-        }
+        if(ELH_Config.PushErrors) {
+            if (ELH_Config.RESTEndpoint) {
+                ELH.PostErrorToREST(errObj);
+            }
 
-        if (ELH_Config.WebSocketServer) {
-            ELH.PostErrorToWS(errObj);
+            if (ELH_Config.WebSocketServer) {
+                ELH.PostErrorToWS(errObj);
+            }
         }
 
         if(!ELH_Config.RESTEndpoint && !ELH_Config.WebSocketServer) {
